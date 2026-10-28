@@ -53,7 +53,7 @@ function InstagramCarousel({
           {posts.map((post) => (
             <li
               key={post.id}
-              className="min-w-0 shrink-0 grow-0 basis-[75%] pl-8 sm:basis-[45%] lg:basis-[265px]"
+              className="min-w-0 shrink-0 grow-0 basis-[75%] pl-8 sm:basis-[45%] lg:basis-78"
             >
               <a
                 href={post.href}
@@ -64,8 +64,8 @@ function InstagramCarousel({
                 <Image
                   src={post.imageUrl}
                   alt={post.alt}
-                  width={233}
-                  height={233}
+                  width={1000}
+                  height={1000}
                   className="aspect-square w-full object-cover transition hover:scale-[1.03]"
                 />
               </a>

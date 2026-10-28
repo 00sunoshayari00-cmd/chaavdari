@@ -8,6 +8,7 @@ import {
   type MouseEvent as ReactMouseEvent,
   type SyntheticEvent,
 } from "react";
+
 import {
   ChevronRight,
   ChevronsUpDown,
@@ -16,6 +17,7 @@ import {
   PanelLeftOpen,
   X,
 } from "lucide-react";
+
 import type {
   SidebarBrand,
   SidebarItem,
