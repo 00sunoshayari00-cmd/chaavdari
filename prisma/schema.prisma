@@ -1,0 +1,100 @@
+// prisma/schema.prisma
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+// generator client {
+//   provider = "prisma-client"
+//   output   = "../lib/generated/prisma"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+// }
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  slug      String    @unique
+  nameEn    String
+  nameMr    String?
+  sortOrder Int       @default(0)
+  products  Product[]
+}
+
+model Product {
+  id                String         @id @default(cuid())
+  slug              String         @unique
+  sku               String?        @unique
+  nameEn            String
+  nameMr            String?
+  summaryEn         String // short line shown on the card
+  summaryMr         String?
+  descriptionEn     String // sanitized HTML, the main content on the product page
+  descriptionMr     String?
+  ingredientsEn     String?
+  ingredientsMr     String?
+  shelfLife         String?
+  price             Int // in rupees
+  mrp               Int? // compare-at price, shown struck through
+  inStock           Boolean        @default(true)
+  weight            String // e.g. "250gm"
+  rating            Float          @default(0)
+  reviewCount       Int            @default(0)
+  ordersCount       Int            @default(0)
+  metaTitleEn       String? // empty = "Name | Chaavdari"
+  metaTitleMr       String?
+  metaDescriptionEn String? // empty = start of the description
+  metaDescriptionMr String?
+  keywords          String[]       @default([]) // lowercased, first one is the main keyword
+  noindex           Boolean        @default(false)
+  isActive          Boolean        @default(true)
+  isFeatured        Boolean        @default(false)
+  sortOrder         Int            @default(0)
+  categoryId        String
+  category          Category       @relation(fields: [categoryId], references: [id])
+  images            ProductImage[]
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  @@index([categoryId])
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  url       String
+  publicId  String // needed to delete the image from Cloudinary
+  width     Int     @default(0)
+  height    Int     @default(0)
+  altEn     String  @default("")
+  altMr     String?
+  isBanner  Boolean @default(false) // exactly one per product
+  position  Int     @default(0)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+}
+
+// Always one row (id = 1), editable by the owner
+model Settings {
+  id                Int @id @default(1)
+  discountPercent   Int @default(0)
+  discountMinAmount Int @default(0)
+}

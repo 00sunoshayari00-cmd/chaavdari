@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "title": "My Multilingual Site",
+    "description": "A website available in English and Marathi"
+  },
+  "nav": {
+    "products": "Our Products",
+    "story": "Our Story",
+    "categories": "Categories",
+    "contact": "Contact Us",
+    "callNow": "Call Now",
+    "orderNow": "Order Now",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "homePageOfferingSectionTitle": {
+    "title": "Our Offerings"
+  },
+  "offerings": {
+    "namkeen": {
+      "title": "Traditional Namkeen & Snacks",
+      "description": "Traditional Namkeen & Snacks"
+    },
+    "sweets": {
+      "title": "Traditional Sweets & Mithai",
+      "description": "Traditional Sweets & Mithai"
+    },
+    "baked": {
+      "title": "Baked & Special Treats",
+      "description": "Baked & Special Treats"
+    }
+  },
+  "journey": {
+    "ingredients": {
+      "title": "Handpicked Ingredients",
+      "description": "Traditional Namkeen & Snacks"
+    },
+    "preparation": {
+      "title": "Homemade Preparation",
+      "description": "Traditional Namkeen & Snacks"
+    },
+    "packing": {
+      "title": "Freshly Packed",
+      "description": "Traditional Namkeen & Snacks"
+    },
+    "delivery": {
+      "title": "Delivered to You",
+      "description": "Traditional Namkeen & Snacks"
+    }
+  },
+  "homePageJourneySectionTitle": {
+    "title": "The Journey Behind Every Bite"
+  },
+  "story": {
+    "title": "Our Story",
+    "p1": "Every great recipe starts with a little passion, and **Chaavdari** started with family, food, and an idea.",
+    "p2": "Our story began with Mandar Kamble, a passionate chef with over **10+ years** of experience in the food industry. From creating delicious cookies and pastries for clients to running catering orders, Mandar always had a love for creating food that brought people together. Alongside his professional work, he also started taking small homemade snack orders from people around the neighbourhood. Seeing his talent and passion, we thought, why not turn this passion into something of our own?",
+    "p3": "That simple idea brought together Mandar's recipes and culinary experience with our creativity, ideas, and vision.",
+    "p4": "Our aim is simple 100% natural ingredients, authentic Konkan flavours, traditional recipes, and healthy homemade goodness made with love and ready to travel from our home to your doorstep, anywhere in the world. 🧡",
+    "founder": {
+      "role": "Co-founder",
+      "name": "Chef - Mandar Kamble"
+    }
+  },
+  "order": {
+    "text": "Now you can Place your order on",
+    "whatsapp": "Whatsapp",
+    "button": "Order on Whatsapp",
+    "message": "Hi, I would like to place an order."
+  },
+  "origin": {
+    "title": "Our Origin & Workshop",
+    "description": "Every authentic recipe we make began right here on this veranda. This family home in at **Kapadgaon, Pali, Ratnagiri,** is where our journey started, crafting every product by hand using timeless Konkan traditions.",
+    "imageAlt": "Our family home and workshop at Kapadgaon, Pali, Ratnagiri"
+  },
+  "highlights": {
+    "quality": { "line1": "Premium", "line2": "Quality Ingredients" },
+    "homemade": { "line1": "Homemade", "line2": "with Care" },
+    "fresh": { "line1": "Pure, Fresh", "line2": "Wholesome" }
+  },
+  "social": {
+    "followLine": "Follow us on",
+    "handle": "@chaavdari",
+    "prev": "Previous posts",
+    "next": "Next posts"
+  },
+  "footer": {
+    "links": {
+      "story": "Our Story",
+      "categories": "Our Categories",
+      "products": "Our Products",
+      "contact": "Contact Us",
+      "order": "Order Snacks"
+    },
+    "callLabel": "Call Us for Order",
+    "whatsappLabel": "Whatsapp for Order",
+    "emailLabel": "Email for Order",
+    "tagline": "चव आली तुमच्या दारी!",
+    "rights": "chaavdari. All rights reserved."
+  },
+  "productPage": {
+    "home": "Home",
+    "products": "Products",
+    "inStock": "In stock",
+    "outOfStock": "Out of stock",
+    "ratingOutOf": "{rating} out of 5",
+    "reviewOne": "{count} review",
+    "reviewMany": "{count} reviews",
+    "orderOne": "{count} order",
+    "orderMany": "{count} orders",
+    "save": "Save {percent}%",
+    "quantity": "Quantity",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "orderOnWhatsapp": "Order on WhatsApp",
+    "total": "Total",
+    "discountLine": "Discount ({percent}%)",
+    "afterDiscount": "After discount",
+    "offerMin": "Get {percent}% off on orders of ₹{min} or more",
+    "offerAll": "Get {percent}% off on every order",
+    "aboutTitle": "About this product",
+    "detailsTitle": "Product details",
+    "category": "Category",
+    "weight": "Weight",
+    "ingredients": "Ingredients",
+    "shelfLife": "Shelf life",
+    "relatedTitle": "You may also like",
+    "orderNow": "Order Now",
+    "galleryThumb": "Show image {n}"
+  },
+  "orderMsg": {
+    "greeting": "Hi, I would like to order:",
+    "total": "Total",
+    "discount": "Discount ({percent}%)",
+    "afterDiscount": "Total after discount",
+    "productLink": "Product link"
+  },
+  "switcher": {
+    "label": "Language"
+  }
+}

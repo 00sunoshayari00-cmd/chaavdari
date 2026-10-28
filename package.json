@@ -9,18 +9,42 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.10.1",
+    "@prisma/client": "^7.10.1",
+    "@tiptap/pm": "^3.32.0",
+    "@tiptap/react": "^3.32.0",
+    "@tiptap/starter-kit": "^3.32.0",
+    "axios": "^1.21.0",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.11.0",
+    "embla-carousel-react": "^8.6.0",
+    "i18next": "^26.5.3",
+    "lucide-react": "^1.62.0",
     "next": "16.4.2",
+    "next-auth": "^5.0.0-beta.32",
+    "next-i18next": "^16.4.1",
+    "pg": "^8.23.1",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "react-i18next": "^17.1.0",
+    "react-icons": "^5.7.0",
+    "sanitize-html": "^2.18.1",
+    "zod": "^4.6.7",
+    "zustand": "^5.0.16"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/sanitize-html": "^2.16.2",
+    "dotenv": "^18.0.9",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
+    "prisma": "^7.10.1",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }
