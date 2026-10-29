@@ -1,81 +1,46 @@
+// components/frontend/home/OurOfferings.tsx
 import React from "react";
 import Image from "next/image";
 import SectionHeader from "../../common/SectionHeader";
-import { JourneysData } from "@/data/Journey";
+import { OurOfferingsData } from "@/data/OurOffering";
 import { getT } from "@/i18n.server";
 
-// Upload journey-bg.png to Cloudinary and paste the URL here
-const BACKGROUND_URL =
-  "https://res.cloudinary.com/mer50qza/image/upload/v1793026659/journey-bg.png";
-
-function ArrowRight() {
-  return (
-    <svg
-      aria-hidden="true"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M4 12h16M14 6l6 6-6 6" />
-    </svg>
-  );
-}
-
-async function Journey() {
+async function OurOfferings() {
   const { t } = await getT();
 
   return (
-    <section
-      id="journey"
-      className="relative isolate overflow-hidden bg-[#F8FBFF] pt-19 pb-[35vw]"
-    >
-      {/* Artwork pinned to the bottom, always full width */}
-      <Image
-        src={BACKGROUND_URL}
-        alt=""
-        width={1000}
-        height={1000}
-        sizes="100vw"
-        className="absolute bottom-0 left-0 -z-10 h-auto w-full"
-      />
+    <section className="max-w-340 mx-auto py-19">
+      <SectionHeader title={t("homePageOfferingSectionTitle.title")} />
 
-      <div className="mx-auto max-w-340">
-        <SectionHeader
-          title={t("homePageJourneySectionTitle.title")}
-          className="text-center text-[#E0700F]"
-        />
-
-        <ul className="mt-14.25 grid grid-cols-2 gap-x-6 gap-y-12 md:flex md:items-start md:justify-between">
-          {JourneysData.map((step, index) => (
+      <div className="mt-14.25">
+        <ul className="grid gap-24.5 md:grid-cols-3">
+          {OurOfferingsData.map((offering) => (
             <li
-              key={step.id}
-              className="relative flex flex-col items-center gap-6 text-center md:flex-1"
+              key={offering.id}
+              className="h-108.5 relative flex flex-col justify-end items-center gap-y-9.75"
             >
-              <figure>
+              <figure className="">
                 <Image
-                  src={step.imageUrl}
-                  alt={t(`journey.${step.key}.title`)}
-                  width={133}
-                  height={133}
-                  className="size-[133px] object-contain mix-blend-multiply"
+                  src={offering.bannerImageUrl}
+                  alt={t(`offerings.${offering.key}.title`)}
+                  width={400}
+                  height={300}
+                  className="max-w-[388.05px] w-full h-[253.11px] object-contain"
                 />
+                <div className="absolute top-14.25 left-1/2 -translate-x-1/2 w-[288px] h-[274px] -z-10">
+                  <Image
+                    src={offering.rectangleImageUrl}
+                    alt={t(`offerings.${offering.key}.title`)}
+                    width={400}
+                    height={300}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
               </figure>
-
-              <h3 className="text-base font-semibold text-black">
-                {t(`journey.${step.key}.title`)}
+              <h3 className="text-2xl font-semibold bg-gradient-to-b from-[#02811E] to-[#0E6501] bg-clip-text text-transparent">
+                {t(`offerings.${offering.key}.title`)}
               </h3>
-
-              {/* Arrow between steps, desktop only */}
-              {index < JourneysData.length - 1 && (
-                <span className="absolute right-0 top-[56px] hidden translate-x-1/2 text-red-500 md:block">
-                  <ArrowRight />
-                </span>
-              )}
+              {/* <p>{t(`offerings.${offering.key}.description`)}</p> */}
             </li>
           ))}
         </ul>
@@ -84,4 +49,4 @@ async function Journey() {
   );
 }
 
-export default Journey;
+export default OurOfferings;

@@ -162,10 +162,23 @@ async function Footer() {
           {t("footer.tagline")}
         </p>
 
-        {/* Copyright */}
-        <p className="mt-10 pb-6 text-center text-[11px] text-white/90 lg:mt-12">
-          © {new Date().getFullYear()} {t("footer.rights")}
-        </p>
+        {/* Copyright + credit (credit sits bottom right from sm up) */}
+        <div className="mt-10 flex w-full flex-col items-center gap-2 px-6 pb-6 text-[11px] text-white/90 sm:flex-row sm:justify-between lg:mt-12 lg:px-10">
+          <p className="text-center">
+            © {new Date().getFullYear()} {t("footer.rights")}
+          </p>
+          <p className="text-center sm:text-right">
+            {t("footer.credit")}{" "}
+            <a
+              href="https://codekk.dev"
+              target="_blank"
+              rel="noopener"
+              className="font-semibold text-[#FFA726] transition hover:text-white"
+            >
+              codekk.dev
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
