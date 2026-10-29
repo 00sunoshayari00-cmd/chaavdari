@@ -1,11 +1,6 @@
 "use client";
 import { useTransition } from "react";
-import {
-  useParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useT } from "next-i18next/client";
 
 const languages = [
@@ -21,7 +16,6 @@ export default function LanguageSwitcher({
   const { t } = useT();
   const pathname = usePathname();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { lng } = useParams<{ lng: string }>();
   const [isPending, startTransition] = useTransition();
 
@@ -33,11 +27,12 @@ export default function LanguageSwitcher({
     const segments = pathname.split("/"); // ['', 'en', 'about']
     segments[1] = newLng; // ['', 'mr', 'about']
 
-    const query = searchParams.toString();
-    const hash = typeof window !== "undefined" ? window.location.hash : "";
+    // Read query + hash at click time; useSearchParams() would force a
+    // client-side rendering bailout for every page that renders the navbar.
+    const { search, hash } = window.location;
 
     startTransition(() => {
-      router.push(segments.join("/") + (query ? `?${query}` : "") + hash);
+      router.push(segments.join("/") + search + hash);
     });
   };
 
