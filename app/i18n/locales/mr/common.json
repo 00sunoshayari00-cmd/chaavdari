@@ -31,10 +31,22 @@
     }
   },
   "journey": {
-    "ingredients": { "title": "निवडक साहित्य", "description": "" },
-    "preparation": { "title": "घरगुती पद्धतीने तयार", "description": "" },
-    "packing": { "title": "ताजे पॅकिंग", "description": "" },
-    "delivery": { "title": "तुमच्यापर्यंत डिलिव्हरी", "description": "" }
+    "ingredients": {
+      "title": "निवडक साहित्य",
+      "description": ""
+    },
+    "preparation": {
+      "title": "घरगुती पद्धतीने तयार",
+      "description": ""
+    },
+    "packing": {
+      "title": "ताजे पॅकिंग",
+      "description": ""
+    },
+    "delivery": {
+      "title": "तुमच्यापर्यंत डिलिव्हरी",
+      "description": ""
+    }
   },
   "homePageJourneySectionTitle": {
     "title": "प्रत्येक घासामागचा प्रवास"
@@ -62,9 +74,18 @@
     "imageAlt": "कापडगाव, पाली, रत्नागिरी येथील आमचे कौटुंबिक घर आणि कार्यशाळा"
   },
   "highlights": {
-    "quality": { "line1": "प्रीमियम", "line2": "दर्जेदार साहित्य" },
-    "homemade": { "line1": "घरगुती", "line2": "प्रेमाने बनवलेले" },
-    "fresh": { "line1": "शुद्ध, ताजे", "line2": "पौष्टिक" }
+    "quality": {
+      "line1": "प्रीमियम",
+      "line2": "दर्जेदार साहित्य"
+    },
+    "homemade": {
+      "line1": "घरगुती",
+      "line2": "प्रेमाने बनवलेले"
+    },
+    "fresh": {
+      "line1": "शुद्ध, ताजे",
+      "line2": "पौष्टिक"
+    }
   },
   "social": {
     "followLine": "आम्हाला येथे फॉलो करा",
@@ -107,7 +128,7 @@
     "total": "एकूण",
     "discount": "सवलत ({percent}%)",
     "afterDiscount": "सवलतीनंतर एकूण",
-    "productLink": "प्रॉडक्ट लिंक"
+    "productLinks": "प्रॉडक्ट लिंक्स"
   },
   "footer": {
     "links": {
@@ -123,7 +144,40 @@
     "tagline": "चव आली तुमच्या दारी!",
     "rights": "chaavdari. सर्व हक्क राखीव."
   },
+  "cart": {
+    "title": "तुमची कार्ट",
+    "open": "कार्ट उघडा",
+    "close": "कार्ट बंद करा",
+    "empty": "तुमची कार्ट रिकामी आहे",
+    "emptyHint": "तुमचे आवडते पदार्थ कार्टमध्ये टाका आणि सगळे एकत्र व्हॉट्सअ‍ॅपवर ऑर्डर करा.",
+    "continueShopping": "खरेदी सुरू ठेवा",
+    "viewCart": "संपूर्ण कार्ट पाहा",
+    "remove": "{name} काढून टाका",
+    "decrease": "प्रमाण कमी करा",
+    "increase": "प्रमाण वाढवा",
+    "subtotal": "एकूण",
+    "discountLine": "सवलत ({percent}%)",
+    "afterDiscount": "सवलतीनंतर",
+    "addMore": "{percent}% सवलत मिळवण्यासाठी आणखी {amount} चे पदार्थ घ्या",
+    "offerApplied": "{percent}% सवलत लागू झाली",
+    "outOfStock": "सध्या उपलब्ध नाही, ऑर्डरमध्ये समाविष्ट नाही",
+    "removedNotice": "काही उत्पादने आता उपलब्ध नाहीत, म्हणून ती तुमच्या कार्टमधून काढली आहेत.",
+    "loadError": "कार्ट लोड करता आली नाही.",
+    "retry": "पुन्हा प्रयत्न करा",
+    "order": "व्हॉट्सअ‍ॅपवर ऑर्डर करा",
+    "longHint": "तुमची ऑर्डर मोठी आहे, म्हणून ती कॉपी केली जाईल. व्हॉट्सअ‍ॅप उघडल्यावर ती चॅटमध्ये पेस्ट करा.",
+    "clear": "कार्ट रिकामी करा",
+    "add": "कार्टमध्ये टाका",
+    "full": "तुम्ही जास्तीत जास्त {max} वेगवेगळी उत्पादने टाकू शकता."
+  },
   "switcher": {
     "label": "भाषा"
+  },
+  "productsSection": {
+    "title": "आमची उत्पादने",
+    "tabsLabel": "उत्पादनांच्या श्रेणी",
+    "empty": "नवीन उत्पादने लवकरच येत आहेत.",
+    "addToCart": "{name} कार्टमध्ये टाका",
+    "outOfStock": "सध्या उपलब्ध नाही"
   }
 }

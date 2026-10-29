@@ -6,11 +6,12 @@ import { getT } from "@/i18n.server";
 import SectionHeader from "@/components/frontend/common/SectionHeader";
 import ProductGallery from "@/components/frontend/components/ProductPage/ProductGallery";
 import ProductActions from "@/components/frontend/components/ProductPage/ProductActions";
-import ProductCard from "@/components/frontend/components/ProductPage/ProductCard";
+import ProductCard from "@/components/frontend/components/Products/ProductCard";
 import { getProduct, getRelatedProducts, getSettings } from "@/lib/products";
 import { bannerOf, orderedImages } from "@/lib/productImages";
 import { pick } from "@/lib/localized";
 import { fill, formatPrice } from "@/lib/format";
+import { CART_LIMITS } from "@/lib/cartTypes";
 import { SITE_URL } from "@/lib/site";
 import { SITE_NAME, defaultMetaDescription, defaultMetaTitle } from "@/lib/seo";
 import { htmlToText, richTextClass } from "@/lib/text";
@@ -330,6 +331,7 @@ export default async function ProductPage({ params }: Props) {
             <p className="text-[15px] leading-relaxed text-[#555]">{summary}</p>
 
             <ProductActions
+              slug={product.slug}
               name={name}
               weight={product.weight}
               price={product.price}
@@ -344,7 +346,7 @@ export default async function ProductPage({ params }: Props) {
                 total: t("orderMsg.total"),
                 discount: t("orderMsg.discount"),
                 afterDiscount: t("orderMsg.afterDiscount"),
-                links: t("orderMsg.productLink"),
+                links: t("orderMsg.productLinks"),
               }}
               labels={{
                 quantity: t("productPage.quantity"),
@@ -355,6 +357,8 @@ export default async function ProductPage({ params }: Props) {
                 total: t("productPage.total"),
                 discountLine: t("productPage.discountLine"),
                 afterDiscount: t("productPage.afterDiscount"),
+                addToCart: t("cart.add"),
+                cartFull: t("cart.full"),
               }}
             />
 
@@ -426,6 +430,13 @@ export default async function ProductPage({ params }: Props) {
                     lng={lng}
                     orderLabel={t("productPage.orderNow")}
                     product={p}
+                    cart={{
+                      addTemplate: t("productsSection.addToCart"),
+                      fullLabel: fill(t("cart.full"), {
+                        max: CART_LIMITS.maxProducts,
+                      }),
+                      outOfStockLabel: t("productsSection.outOfStock"),
+                    }}
                   />
                 </li>
               ))}

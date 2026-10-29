@@ -74,9 +74,18 @@
     "imageAlt": "Our family home and workshop at Kapadgaon, Pali, Ratnagiri"
   },
   "highlights": {
-    "quality": { "line1": "Premium", "line2": "Quality Ingredients" },
-    "homemade": { "line1": "Homemade", "line2": "with Care" },
-    "fresh": { "line1": "Pure, Fresh", "line2": "Wholesome" }
+    "quality": {
+      "line1": "Premium",
+      "line2": "Quality Ingredients"
+    },
+    "homemade": {
+      "line1": "Homemade",
+      "line2": "with Care"
+    },
+    "fresh": {
+      "line1": "Pure, Fresh",
+      "line2": "Wholesome"
+    }
   },
   "social": {
     "followLine": "Follow us on",
@@ -133,9 +142,42 @@
     "total": "Total",
     "discount": "Discount ({percent}%)",
     "afterDiscount": "Total after discount",
-    "productLink": "Product link"
+    "productLinks": "Product links"
+  },
+  "cart": {
+    "title": "Your cart",
+    "open": "Open cart",
+    "close": "Close cart",
+    "empty": "Your cart is empty",
+    "emptyHint": "Add your favourite snacks and order them all together on WhatsApp.",
+    "continueShopping": "Continue shopping",
+    "viewCart": "View full cart",
+    "remove": "Remove {name}",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "subtotal": "Total",
+    "discountLine": "Discount ({percent}%)",
+    "afterDiscount": "After discount",
+    "addMore": "Add {amount} more to get {percent}% off",
+    "offerApplied": "{percent}% discount applied",
+    "outOfStock": "Out of stock, not included in your order",
+    "removedNotice": "Some products are no longer available and were removed from your cart.",
+    "loadError": "Could not load your cart.",
+    "retry": "Try again",
+    "order": "Order on WhatsApp",
+    "longHint": "Your order is long, so it will be copied. Paste it in the WhatsApp chat after it opens.",
+    "clear": "Clear cart",
+    "add": "Add to cart",
+    "full": "You can add up to {max} different products."
   },
   "switcher": {
     "label": "Language"
+  },
+  "productsSection": {
+    "title": "Our Products",
+    "tabsLabel": "Product categories",
+    "empty": "New products are coming soon.",
+    "addToCart": "Add {name} to cart",
+    "outOfStock": "Out of stock"
   }
 }

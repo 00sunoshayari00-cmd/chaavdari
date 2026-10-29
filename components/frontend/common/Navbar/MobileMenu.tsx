@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import LanguageSwitcher from "../../components/LanguageSwitcher";
 
 interface MobileMenuProps {
   links: { href: string; label: string }[];
@@ -79,6 +80,9 @@ function MobileMenu({
               </li>
             ))}
           </ul>
+
+          {/* Language switcher lives here on phones, where it's hidden from the header */}
+          <LanguageSwitcher className="mt-4 flex sm:hidden" />
 
           {phoneText && (
             <a

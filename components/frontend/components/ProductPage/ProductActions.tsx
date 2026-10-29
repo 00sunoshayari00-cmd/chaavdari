@@ -5,10 +5,13 @@ import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa6";
 import { fill, formatPrice } from "@/lib/format";
 import { buildOrderMessage, calcTotals, type OrderLabels } from "@/lib/order";
+import AddToCartButton from "@/components/frontend/components/Cart/AddToCartButton";
+import { CART_LIMITS } from "@/lib/cartTypes";
 
 const MAX_QTY = 10;
 
 interface ProductActionsProps {
+  slug: string;
   name: string;
   weight: string;
   price: number;
@@ -28,10 +31,13 @@ interface ProductActionsProps {
     total: string;
     discountLine: string; // contains {percent}
     afterDiscount: string;
+    addToCart: string;
+    cartFull: string; // contains {max}
   };
 }
 
 export default function ProductActions({
+  slug,
   name,
   weight,
   price,
@@ -146,7 +152,14 @@ export default function ProductActions({
         </button>
       )}
 
-      {/* "Add to cart" goes here when we build the cart */}
+      {inStock && (
+        <AddToCartButton
+          slug={slug}
+          qty={qty}
+          label={labels.addToCart}
+          fullLabel={fill(labels.cartFull, { max: CART_LIMITS.maxProducts })}
+        />
+      )}
     </div>
   );
 }

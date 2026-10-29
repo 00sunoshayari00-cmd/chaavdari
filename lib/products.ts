@@ -12,6 +12,25 @@ export const getProduct = cache(async (slug: string) =>
   }),
 );
 
+// Categories that have at least one visible product, with those products
+export const getCatalog = cache(async () =>
+  db.category.findMany({
+    where: { products: { some: { isActive: true } } },
+    orderBy: [{ sortOrder: "asc" }, { nameEn: "asc" }],
+    include: {
+      products: {
+        where: { isActive: true },
+        orderBy: [
+          { isFeatured: "desc" },
+          { sortOrder: "asc" },
+          { createdAt: "desc" },
+        ],
+        include: withImages,
+      },
+    },
+  }),
+);
+
 export const getSettings = cache(async () => {
   const row = await db.settings.findUnique({ where: { id: 1 } });
   return {

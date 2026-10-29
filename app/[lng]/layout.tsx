@@ -7,6 +7,9 @@ import { getT, getResources, generateI18nStaticParams } from "@/i18n.server";
 import "../globals.css";
 import Navbar from "@/components/frontend/common/Navbar/Navbar";
 import Footer from "@/components/frontend/common/Footer/Footer";
+import CartProvider from "@/components/frontend/components/Cart/CartProvider";
+import CartDrawer from "@/components/frontend/components/Cart/CartDrawer";
+import { buildCartLabels } from "@/lib/cartLabels";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -40,7 +43,7 @@ export default async function RootLayout({
   params: Promise<{ lng: string }>;
 }) {
   const { lng } = await params;
-  const { i18n } = await getT();
+  const { i18n, t } = await getT();
   const resources = getResources(i18n);
 
   return (
@@ -50,9 +53,16 @@ export default async function RootLayout({
     >
       <body className={instrumentSans.className}>
         <I18nProvider language={lng} resources={resources}>
+          <CartProvider />
           <Navbar />
           {children}
           <Footer />
+          <CartDrawer
+            lng={lng}
+            siteUrl={SITE_URL}
+            whatsappNumber={process.env.WHATSAPP_NUMBER ?? ""}
+            labels={buildCartLabels(t)}
+          />
         </I18nProvider>
       </body>
     </html>

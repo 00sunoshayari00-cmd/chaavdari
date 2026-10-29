@@ -2,6 +2,8 @@ import React from "react";
 import Image from "next/image";
 import { getT } from "@/i18n.server";
 import MobileMenu from "./MobileMenu";
+import CartButton from "@/components/frontend/components/Cart/CartButton";
+import LanguageSwitcher from "../../components/LanguageSwitcher";
 
 // Upload your logo to Cloudinary and paste the URL here
 const LOGO_URL =
@@ -48,7 +50,7 @@ async function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
-      <div className="mx-auto flex h-[60px] max-w-[1280px] items-center justify-between gap-4 px-4 sm:px-6 lg:h-[70px] lg:px-8">
+      <div className="mx-auto flex h-[60px] max-w-[1360px] items-center gap-6 px-4 sm:px-6 lg:h-[76px] lg:px-10 xl:gap-10">
         {/* Logo */}
         <a href="#" className="shrink-0">
           <Image
@@ -63,12 +65,12 @@ async function Navbar() {
 
         {/* Desktop links */}
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-9">
+          <ul className="flex items-center gap-6 xl:gap-8">
             {links.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-base font-medium text-black/50 transition hover:text-[#F26A0F]"
+                  className="whitespace-nowrap text-[15px] font-medium text-black/60 transition hover:text-[#F26A0F]"
                 >
                   {link.label}
                 </a>
@@ -77,41 +79,46 @@ async function Navbar() {
           </ul>
         </nav>
 
-        {/* Desktop call block (xl and up) */}
-        <div className="hidden xl:block">
-          <span className="inline-block rounded-full bg-red-600 px-[9.26px] py-1 text-[8px] font-semibold leading-tight text-white">
-            {t("nav.callNow")}
-          </span>
-          <a
-            href={telHref}
-            className="mt-0.5 flex items-center gap-1.5 text-base font-bold text-[#0E7000]"
-          >
-            <PhoneIcon />
-            {phoneText}
-          </a>
-        </div>
+        {/* Right side: pushed to the far end, split into two groups */}
+        <div className="ml-auto flex items-center gap-6">
+          {/* Call block: one line, with a divider after it */}
+          <div className="hidden items-center gap-2 border-r border-black/10 pr-6 xl:flex xl:flex-col xl:items-start">
+            <div className="hidden rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-semibold leading-tight text-white 2xl:inline-block">
+              {t("nav.callNow")}
+            </div>
+            <a
+              href={telHref}
+              className="flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-[#0E7000]"
+            >
+              <PhoneIcon />
+              {phoneText}
+            </a>
+          </div>
 
-        {/* Right side: Order Now (sm and up) + hamburger (below lg) */}
-        <div className="flex items-center gap-3">
-          <a
-            href={orderHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden rounded-full bg-linear-to-b from-[#ed8926] to-[#ed6d11] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#D95B08] sm:inline-flex"
-          >
-            {t("nav.orderNow")}
-          </a>
+          {/* Actions: language, cart, Order Now, hamburger */}
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher className="hidden sm:inline-flex" />
+            <CartButton label={t("cart.open")} />
+            <a
+              href={orderHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden whitespace-nowrap rounded-full bg-linear-to-b from-[#ed8926] to-[#ed6d11] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-95 sm:inline-flex"
+            >
+              {t("nav.orderNow")}
+            </a>
 
-          <MobileMenu
-            links={links}
-            phoneText={phoneText}
-            telHref={telHref}
-            callNowLabel={t("nav.callNow")}
-            orderLabel={t("nav.orderNow")}
-            orderHref={orderHref}
-            openLabel={t("nav.openMenu")}
-            closeLabel={t("nav.closeMenu")}
-          />
+            <MobileMenu
+              links={links}
+              phoneText={phoneText}
+              telHref={telHref}
+              callNowLabel={t("nav.callNow")}
+              orderLabel={t("nav.orderNow")}
+              orderHref={orderHref}
+              openLabel={t("nav.openMenu")}
+              closeLabel={t("nav.closeMenu")}
+            />
+          </div>
         </div>
       </div>
     </header>

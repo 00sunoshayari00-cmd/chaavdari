@@ -3,6 +3,7 @@ import { getT } from "@/i18n.server";
 import LanguageSwitcher from "@/components/frontend/components/LanguageSwitcher";
 import Counter from "@/components/frontend/components/Counter";
 import OurOfferings from "@/components/frontend/components/OurOfferings/OurOfferings";
+import OurProducts from "@/components/frontend/components/Products/OurProducts";
 import Journey from "@/components/frontend/components/Journey/Journey";
 import Story from "@/components/frontend/components/Story/Story";
 import OrderOnWhatsapp from "@/components/frontend/components/OrderOnWhatsapp/OrderOnWhatsapp";
@@ -21,14 +22,19 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Home() {
-  const { t } = await getT();
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ lng: string }>;
+}) {
+  const { lng } = await params;
 
   return (
     <main className="mx-auto">
-      <LanguageSwitcher />
+      {/* <LanguageSwitcher /> */}
       <Highlights />
       <OurOfferings />
+      <OurProducts lng={lng} />
       <Journey />
       <Story />
       <OrderOnWhatsapp />
