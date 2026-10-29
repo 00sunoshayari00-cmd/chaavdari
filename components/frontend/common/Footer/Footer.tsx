@@ -10,6 +10,7 @@ import {
   FaYoutube,
 } from "react-icons/fa6";
 import { getT } from "@/i18n.server";
+import { WHATSAPP_NUMBER } from "@/lib/site";
 
 // Upload footer-bg.png and your logo to Cloudinary and paste the URLs here
 const BACKGROUND_URL =
@@ -29,7 +30,7 @@ async function Footer() {
   const { t } = await getT();
 
   const phone = process.env.CONTACT_PHONE_1 ?? "";
-  const whatsapp = process.env.WHATSAPP_NUMBER ?? "";
+  const whatsapp = WHATSAPP_NUMBER;
   const email = process.env.CONTACT_EMAIL ?? "";
 
   const phoneText = phone ? `+91 ${phone.slice(0, 5)} ${phone.slice(5)}` : "";

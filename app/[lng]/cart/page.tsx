@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getT } from "@/i18n.server";
 import CartContents from "@/components/frontend/components/Cart/CartContents";
 import { buildCartLabels } from "@/lib/cartLabels";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, WHATSAPP_NUMBER } from "@/lib/site";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getT();
@@ -34,7 +34,7 @@ export default async function CartPage({
             labels={buildCartLabels(t)}
             lng={lng}
             siteUrl={SITE_URL}
-            whatsappNumber={process.env.WHATSAPP_NUMBER ?? ""}
+            whatsappNumber={WHATSAPP_NUMBER}
           />
         </div>
       </div>

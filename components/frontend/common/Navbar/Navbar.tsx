@@ -4,6 +4,7 @@ import { getT } from "@/i18n.server";
 import MobileMenu from "./MobileMenu";
 import CartButton from "@/components/frontend/components/Cart/CartButton";
 import LanguageSwitcher from "../../components/LanguageSwitcher";
+import { WHATSAPP_NUMBER } from "@/lib/site";
 
 // Upload your logo to Cloudinary and paste the URL here
 const LOGO_URL =
@@ -44,7 +45,7 @@ async function Navbar() {
   const phoneText = phones.join(" / ");
   const telHref = phones[0] ? `tel:+91${phones[0]}` : "#contact";
 
-  const orderHref = `https://wa.me/${process.env.WHATSAPP_NUMBER ?? ""}?text=${encodeURIComponent(
+  const orderHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     t("order.message"),
   )}`;
 

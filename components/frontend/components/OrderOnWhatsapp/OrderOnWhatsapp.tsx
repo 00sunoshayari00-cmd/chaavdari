@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { getT } from "@/i18n.server";
+import { WHATSAPP_NUMBER } from "@/lib/site";
 
 // Upload Group_20.png and your WhatsApp icon to Cloudinary (or /public) and update these
 const BACKGROUND_URL =
@@ -30,7 +31,7 @@ function ArrowRight() {
 async function OrderOnWhatsapp() {
   const { t } = await getT();
 
-  const number = process.env.WHATSAPP_NUMBER ?? "";
+  const number = WHATSAPP_NUMBER;
   const displayNumber = number
     ? `+${number.slice(0, 2)} ${number.slice(2)}`
     : "";

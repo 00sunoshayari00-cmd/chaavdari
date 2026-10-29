@@ -10,7 +10,7 @@ import Footer from "@/components/frontend/common/Footer/Footer";
 import CartProvider from "@/components/frontend/components/Cart/CartProvider";
 import CartDrawer from "@/components/frontend/components/Cart/CartDrawer";
 import { buildCartLabels } from "@/lib/cartLabels";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, WHATSAPP_NUMBER } from "@/lib/site";
 import { SITE_NAME, THEME_COLOR, LOGO_URL, ogLocale } from "@/lib/seo";
 
 // Site-wide defaults; each page overrides title, description and canonical
@@ -110,7 +110,7 @@ export default async function RootLayout({
           <CartDrawer
             lng={lng}
             siteUrl={SITE_URL}
-            whatsappNumber={process.env.WHATSAPP_NUMBER ?? ""}
+            whatsappNumber={WHATSAPP_NUMBER}
             labels={buildCartLabels(t)}
           />
         </I18nProvider>

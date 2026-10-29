@@ -12,7 +12,7 @@ import { bannerOf, orderedImages } from "@/lib/productImages";
 import { pick } from "@/lib/localized";
 import { fill, formatPrice } from "@/lib/format";
 import { CART_LIMITS } from "@/lib/cartTypes";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, WHATSAPP_NUMBER } from "@/lib/site";
 import {
   SITE_NAME,
   defaultMetaDescription,
@@ -334,7 +334,7 @@ export default async function ProductPage({ params }: Props) {
               price={product.price}
               url={productUrl}
               inStock={product.inStock}
-              whatsappNumber={process.env.WHATSAPP_NUMBER ?? ""}
+              whatsappNumber={WHATSAPP_NUMBER}
               discountPercent={settings.discountPercent}
               discountMinAmount={settings.discountMinAmount}
               offer={offer}
