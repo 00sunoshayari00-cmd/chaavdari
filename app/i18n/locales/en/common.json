@@ -1,7 +1,9 @@
 {
   "meta": {
-    "title": "My Multilingual Site",
-    "description": "A website available in English and Marathi"
+    "title": "Chaavdari | Homemade Konkan Snacks & Sweets from Ratnagiri",
+    "description": "Authentic homemade Konkan namkeen, sweets and baked treats from Pali, Ratnagiri. 100% natural ingredients, traditional recipes, delivered to your door. Order on WhatsApp.",
+    "siteDescription": "Homemade Konkan namkeen, sweets and baked treats made with natural ingredients and traditional recipes in Kapadgaon, Pali, Ratnagiri.",
+    "ogAlt": "Chaavdari: homemade Konkan snacks and sweets"
   },
   "nav": {
     "products": "Our Products",

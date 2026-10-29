@@ -13,7 +13,14 @@ import { pick } from "@/lib/localized";
 import { fill, formatPrice } from "@/lib/format";
 import { CART_LIMITS } from "@/lib/cartTypes";
 import { SITE_URL } from "@/lib/site";
-import { SITE_NAME, defaultMetaDescription, defaultMetaTitle } from "@/lib/seo";
+import {
+  SITE_NAME,
+  defaultMetaDescription,
+  defaultMetaTitle,
+  jsonLdString,
+  localeAlternates,
+  ogLocale,
+} from "@/lib/seo";
 import { htmlToText, richTextClass } from "@/lib/text";
 
 type Props = { params: Promise<{ lng: string; slug: string }> };
@@ -39,21 +46,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     keywords: product.keywords.length ? product.keywords : undefined,
     robots: product.noindex ? { index: false, follow: false } : undefined,
-    alternates: {
-      canonical: `/${lng}/products/${product.slug}`,
-      languages: {
-        en: `/en/products/${product.slug}`,
-        mr: `/mr/products/${product.slug}`,
-        "x-default": `/en/products/${product.slug}`,
-      },
-    },
+    alternates: localeAlternates(lng, `/products/${product.slug}`),
     openGraph: {
       type: "website",
       title,
       description,
       url: `/${lng}/products/${product.slug}`,
       siteName: SITE_NAME,
-      locale: lng === "mr" ? "mr_IN" : "en_IN",
+      locale: ogLocale(lng),
       images: banner
         ? [
             {
@@ -236,10 +236,7 @@ export default async function ProductPage({ params }: Props) {
     <main className="bg-[#FBF6EA] px-4 pb-20 pt-8 sm:px-6 lg:px-10">
       <script
         type="application/ld+json"
-        // "<" is escaped so the text can never close the script tag
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-        }}
+        dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd) }}
       />
 
       <div className="mx-auto max-w-[1200px]">
