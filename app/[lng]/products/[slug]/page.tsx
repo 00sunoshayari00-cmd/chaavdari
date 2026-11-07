@@ -233,13 +233,13 @@ export default async function ProductPage({ params }: Props) {
   ].filter((d) => d.value);
 
   return (
-    <main className="bg-[#FBF6EA] px-4 pb-20 pt-8 sm:px-6 lg:px-10">
+    <main className="bg-[#FBF6EA] px-4 pb-50 pt-8 sm:px-6 lg:px-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd) }}
       />
 
-      <div className="mx-auto max-w-[1200px]">
+      <div className="mx-auto max-w-300">
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="text-sm text-[#7A6A55]">
           <ol className="flex flex-wrap items-center gap-2">

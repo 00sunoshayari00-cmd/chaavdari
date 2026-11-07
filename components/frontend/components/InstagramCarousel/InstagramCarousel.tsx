@@ -89,7 +89,7 @@ function InstagramCarousel({
             alt=""
             width={20}
             height={20}
-            className="size-5 -scale-x-100 object-contain"
+            className="size-5 -scale-x-100 object-contain rotate-180"
           />
         </button>
 
