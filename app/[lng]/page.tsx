@@ -8,6 +8,7 @@ import Journey from "@/components/frontend/components/Journey/Journey";
 import Story from "@/components/frontend/components/Story/Story";
 import OrderOnWhatsapp from "@/components/frontend/components/OrderOnWhatsapp/OrderOnWhatsapp";
 import OurOrigin from "@/components/frontend/components/OurOrigin/OurOrigin";
+import Hero from "@/components/frontend/components/Hero/Hero";
 import Highlights from "@/components/frontend/components/Highlights/Highlights";
 import InstagramFollow from "@/components/frontend/components/InstagramCarousel/InstagramFollow";
 import { getCatalog } from "@/lib/products";
@@ -96,6 +97,7 @@ export default async function Home({
         dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd) }}
       />
       {/* <LanguageSwitcher /> */}
+      <Hero lng={lng} />
       <Highlights />
       <OurOfferings />
       <OurProducts lng={lng} />

@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
   ExternalLink,
+  GalleryHorizontal,
   LayoutDashboard,
   Package,
   Percent,
@@ -82,6 +83,12 @@ export const sidebarSections: SidebarSection[] = [
             href: "/admin/products/new",
           },
         ],
+      },
+      {
+        id: "hero",
+        label: "Hero slides",
+        href: "/admin/hero",
+        icon: GalleryHorizontal,
       },
       {
         id: "categories",

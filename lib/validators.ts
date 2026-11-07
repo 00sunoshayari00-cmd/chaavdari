@@ -6,6 +6,7 @@ import {
   htmlToText,
   normalizeKeywords,
 } from "./productRules";
+import { HERO_LIMITS, HREF_PATTERN } from "./heroRules";
 
 // "" / undefined / null all become null
 const optionalText = z
@@ -177,3 +178,78 @@ export const settingsSchema = z.object({
   discountPercent: z.number().int().min(0).max(90),
   discountMinAmount: z.number().int().min(0),
 });
+
+// ----- Home page hero slides -----
+
+const heroText = (label: string, max: number) =>
+  optionalText.pipe(
+    z.string().max(max, `${label}: at most ${max} characters`).nullable(),
+  );
+
+const heroHref = (label: string) =>
+  optionalText.pipe(
+    z
+      .string()
+      .max(HERO_LIMITS.href.max, `${label}: at most ${HERO_LIMITS.href.max} characters`)
+      .regex(HREF_PATTERN, `${label}: start with /, #, https://, tel: or mailto:`)
+      .nullable(),
+  );
+
+const cloudinaryUrl = z
+  .string()
+  .startsWith("https://res.cloudinary.com/", "Upload the image here");
+
+const { title, description, buttonLabel } = HERO_LIMITS;
+
+export const heroSlideSchema = z
+  .object({
+    imageUrl: z.string().min(1, "Upload the desktop image").pipe(cloudinaryUrl),
+    imagePublicId: z.string().min(1, "Upload the desktop image"),
+    mobileImageUrl: optionalText.pipe(cloudinaryUrl.nullable()),
+    mobileImagePublicId: optionalText,
+    altEn: requiredLen("Image description (English)", LIMITS.alt.min, LIMITS.alt.max),
+    altMr: optionalLen("Image description (Marathi)", LIMITS.alt.min, LIMITS.alt.max),
+
+    showLogo: z.boolean(),
+    titleEn: heroText("Title (English)", title.max),
+    titleMr: heroText("Title (Marathi)", title.max),
+    descriptionEn: heroText("Description (English)", description.max),
+    descriptionMr: heroText("Description (Marathi)", description.max),
+    textTone: z.enum(["dark", "light"]),
+
+    primaryLabelEn: heroText("Button 1 text (English)", buttonLabel.max),
+    primaryLabelMr: heroText("Button 1 text (Marathi)", buttonLabel.max),
+    primaryHref: heroHref("Button 1 link"),
+    secondaryLabelEn: heroText("Button 2 text (English)", buttonLabel.max),
+    secondaryLabelMr: heroText("Button 2 text (Marathi)", buttonLabel.max),
+    secondaryHref: heroHref("Button 2 link"),
+    linkHref: heroHref("Slide link"),
+
+    isActive: z.boolean(),
+    sortOrder: z.number().int().min(0),
+  })
+  .superRefine((s, ctx) => {
+    const need = (ok: unknown, path: string, message: string) => {
+      if (!ok) ctx.addIssue({ code: "custom", path: [path], message });
+    };
+
+    // The English text is the fallback, so Marathi alone would show nothing on /en
+    if (s.titleMr) need(s.titleEn, "titleEn", "Title (English) is required when the Marathi title is filled in");
+    if (s.descriptionMr)
+      need(s.descriptionEn, "descriptionEn", "Description (English) is required when the Marathi description is filled in");
+
+    // A button shows only with English text and a link; half-filled is a mistake
+    for (const [key, name] of [["primary", "Button 1"], ["secondary", "Button 2"]] as const) {
+      const labelEn = s[`${key}LabelEn`];
+      const href = s[`${key}Href`];
+      if (labelEn || s[`${key}LabelMr`] || href) {
+        need(labelEn, `${key}LabelEn`, `${name} text (English) is required, or clear the button`);
+        need(href, `${key}Href`, `${name} link is required, or clear the button`);
+      }
+    }
+
+    if (Boolean(s.mobileImageUrl) !== Boolean(s.mobileImagePublicId))
+      ctx.addIssue({ code: "custom", path: ["mobileImageUrl"], message: "Upload the mobile image again" });
+  });
+
+export type HeroSlideInput = z.infer<typeof heroSlideSchema>;

@@ -182,5 +182,13 @@
     "empty": "New products are coming soon.",
     "addToCart": "Add {name} to cart",
     "outOfStock": "Out of stock"
+  },
+  "hero": {
+    "heading": "Chaavdari: homemade Konkan snacks and sweets",
+    "region": "Featured",
+    "prev": "Previous slide",
+    "next": "Next slide",
+    "slide": "Slide {current} of {total}",
+    "goTo": "Go to slide {current}"
   }
 }

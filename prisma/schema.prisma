@@ -98,3 +98,32 @@ model Settings {
   discountPercent   Int @default(0)
   discountMinAmount Int @default(0)
 }
+
+// Home page hero slideshow. Every text field and button is optional:
+// leave them all empty for an image that already has the text in it.
+model HeroSlide {
+  id                  String   @id @default(cuid())
+  imageUrl            String // desktop / tablet, about 12:5
+  imagePublicId       String
+  mobileImageUrl      String? // phones, about 4:5. Empty = desktop image
+  mobileImagePublicId String?
+  altEn               String
+  altMr               String?
+  showLogo            Boolean  @default(false)
+  titleEn             String?
+  titleMr             String?
+  descriptionEn       String?
+  descriptionMr       String?
+  primaryLabelEn      String? // orange button, hidden when empty
+  primaryLabelMr      String?
+  primaryHref         String?
+  secondaryLabelEn    String? // outlined button, hidden when empty
+  secondaryLabelMr    String?
+  secondaryHref       String?
+  linkHref            String? // whole slide is a link when there are no buttons
+  textTone            String   @default("dark") // "dark" text for light images, "light" for dark images
+  isActive            Boolean  @default(true)
+  sortOrder           Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
