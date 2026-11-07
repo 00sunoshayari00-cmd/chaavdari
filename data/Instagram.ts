@@ -1,3 +1,5 @@
+import { SOCIAL_LINKS } from "@/lib/site";
+
 export interface InstagramPost {
   id: number;
   imageUrl: string;
@@ -5,7 +7,7 @@ export interface InstagramPost {
   href: string; // link to the Instagram post
 }
 
-export const INSTAGRAM_URL = "https://www.instagram.com/chaavdari/"; // update if different
+export const INSTAGRAM_URL = SOCIAL_LINKS.instagram;
 
 // Your custom button icons: upload to Cloudinary (or /public) and paste the URLs.
 // Leave the same image for both if you want, the prev one is flipped in the component.

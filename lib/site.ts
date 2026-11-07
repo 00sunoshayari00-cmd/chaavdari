@@ -9,3 +9,11 @@ export const WHATSAPP_NUMBER = (() => {
   const digits = (process.env.WHATSAPP_NUMBER ?? "").replace(/\D/g, "");
   return digits.length === 10 ? `91${digits}` : digits;
 })();
+
+// Official profiles: footer icons and the "sameAs" links Google reads
+export const SOCIAL_LINKS = {
+  instagram: "https://www.instagram.com/chaavdari/",
+  facebook: "https://www.facebook.com/profile.php?id=61594324092485",
+  youtube: "https://www.youtube.com/@Chaavdari",
+  pinterest: "https://www.pinterest.com/chaavdari/",
+} as const;

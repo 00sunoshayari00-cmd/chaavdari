@@ -10,7 +10,7 @@ import {
   FaYoutube,
 } from "react-icons/fa6";
 import { getT } from "@/i18n.server";
-import { WHATSAPP_NUMBER } from "@/lib/site";
+import { SOCIAL_LINKS, WHATSAPP_NUMBER } from "@/lib/site";
 
 // Upload footer-bg.png and your logo to Cloudinary and paste the URLs here
 const BACKGROUND_URL =
@@ -18,12 +18,11 @@ const BACKGROUND_URL =
 const LOGO_URL =
   "https://res.cloudinary.com/mer50qza/image/upload/v1792846461/chaavdari-logo.png";
 
-// Replace with your real profile links
 const SOCIALS = [
-  { label: "Instagram", href: "https://instagram.com/", Icon: FaInstagram },
-  { label: "Facebook", href: "https://facebook.com/", Icon: FaFacebookF },
-  { label: "YouTube", href: "https://youtube.com/", Icon: FaYoutube },
-  { label: "Pinterest", href: "https://pinterest.com/", Icon: FaPinterestP },
+  { label: "Instagram", href: SOCIAL_LINKS.instagram, Icon: FaInstagram },
+  { label: "Facebook", href: SOCIAL_LINKS.facebook, Icon: FaFacebookF },
+  { label: "YouTube", href: SOCIAL_LINKS.youtube, Icon: FaYoutube },
+  { label: "Pinterest", href: SOCIAL_LINKS.pinterest, Icon: FaPinterestP },
 ];
 
 async function Footer() {
@@ -77,7 +76,7 @@ async function Footer() {
   return (
     <footer
       id="contact"
-      className="relative isolate overflow-hidden text-white"
+      className="relative isolate overflow-hidden text-white -mb-33.5"
     >
       {/* Background artwork */}
       <Image

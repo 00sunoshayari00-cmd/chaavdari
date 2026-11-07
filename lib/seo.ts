@@ -1,6 +1,6 @@
 // lib/seo.ts
 import { htmlToText } from "./text";
-import { SITE_URL } from "./site";
+import { SITE_URL, SOCIAL_LINKS } from "./site";
 
 export const SITE_NAME = "Chaavdari";
 export const LOCALES = ["en", "mr"] as const;
@@ -46,6 +46,7 @@ export function organizationJsonLd(description: string) {
     url: SITE_URL,
     logo: LOGO_URL,
     description,
+    sameAs: Object.values(SOCIAL_LINKS),
     address: {
       "@type": "PostalAddress",
       addressLocality: "Kapadgaon, Pali, Ratnagiri",
