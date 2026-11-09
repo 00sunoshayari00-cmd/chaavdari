@@ -91,6 +91,18 @@ export const sidebarSections: SidebarSection[] = [
         icon: GalleryHorizontal,
       },
       {
+        id: "video-reviews",
+        label: "Video reviews",
+        href: "/admin/video-reviews",
+        icon: GalleryHorizontal,
+      },
+      {
+        id: "testimonials",
+        label: "Testimonials",
+        href: "/admin/testimonials",
+        icon: GalleryHorizontal,
+      },
+      {
         id: "categories",
         label: "Categories",
         href: "/admin/categories",

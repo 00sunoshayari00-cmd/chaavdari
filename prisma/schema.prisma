@@ -94,9 +94,10 @@ model ProductImage {
 
 // Always one row (id = 1), editable by the owner
 model Settings {
-  id                Int @id @default(1)
-  discountPercent   Int @default(0)
-  discountMinAmount Int @default(0)
+  id                Int     @id @default(1)
+  discountPercent   Int     @default(0)
+  discountMinAmount Int     @default(0)
+  youtubeUrl        String?
 }
 
 // Home page hero slideshow. Every text field and button is optional:
@@ -126,4 +127,32 @@ model HeroSlide {
   sortOrder           Int      @default(0)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
+}
+
+model VideoReview {
+  id                String   @id @default(cuid())
+  videoId           String // the 11-character YouTube id
+  titleEn           String
+  titleMr           String?
+  thumbnailUrl      String
+  thumbnailPublicId String // needed to delete the image from Cloudinary
+  isVisible         Boolean  @default(false) // shown on the home page, at most 4
+  sortOrder         Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Testimonial {
+  id             String   @id @default(cuid())
+  nameEn         String
+  nameMr         String?
+  textEn         String
+  textMr         String?
+  rating         Int      @default(5)
+  avatarUrl      String?
+  avatarPublicId String?
+  isVisible      Boolean  @default(true)
+  sortOrder      Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

@@ -7,6 +7,8 @@ import {
   normalizeKeywords,
 } from "./productRules";
 import { HERO_LIMITS, HREF_PATTERN } from "./heroRules";
+import { extractYoutubeId, isYoutubeUrl } from "./youtube";
+import { REVIEW_LIMITS as R } from "./reviewLimits";
 
 // "" / undefined / null all become null
 const optionalText = z
@@ -59,11 +61,18 @@ const richText = (label: string, required: boolean) =>
       const len = html ? htmlToText(html).length : 0;
       const { min, max } = LIMITS.description;
       if (!html) {
-        if (required) ctx.addIssue({ code: "custom", message: `${label} is required` });
+        if (required)
+          ctx.addIssue({ code: "custom", message: `${label} is required` });
       } else if (len < min) {
-        ctx.addIssue({ code: "custom", message: `${label}: at least ${min} characters of text` });
+        ctx.addIssue({
+          code: "custom",
+          message: `${label}: at least ${min} characters of text`,
+        });
       } else if (len > max) {
-        ctx.addIssue({ code: "custom", message: `${label}: at most ${max} characters of text` });
+        ctx.addIssue({
+          code: "custom",
+          message: `${label}: at most ${max} characters of text`,
+        });
       }
     });
 
@@ -74,8 +83,16 @@ const imageSchema = z.object({
   // the 600×600 minimum is enforced at upload; 0 = uploaded before sizes were stored
   width: z.number().int().min(0),
   height: z.number().int().min(0),
-  altEn: requiredLen("Image alt text (English)", LIMITS.alt.min, LIMITS.alt.max),
-  altMr: optionalLen("Image alt text (Marathi)", LIMITS.alt.min, LIMITS.alt.max),
+  altEn: requiredLen(
+    "Image alt text (English)",
+    LIMITS.alt.min,
+    LIMITS.alt.max,
+  ),
+  altMr: optionalLen(
+    "Image alt text (Marathi)",
+    LIMITS.alt.min,
+    LIMITS.alt.max,
+  ),
   isBanner: z.boolean(),
 });
 
@@ -99,8 +116,16 @@ export const productSchema = z
     summaryMr: optionalLen("Short summary (Marathi)", summary.min, summary.max),
     descriptionEn: richText("Description (English)", true),
     descriptionMr: richText("Description (Marathi)", false),
-    ingredientsEn: optionalLen("Ingredients (English)", 1, LIMITS.ingredients.max),
-    ingredientsMr: optionalLen("Ingredients (Marathi)", 1, LIMITS.ingredients.max),
+    ingredientsEn: optionalLen(
+      "Ingredients (English)",
+      1,
+      LIMITS.ingredients.max,
+    ),
+    ingredientsMr: optionalLen(
+      "Ingredients (Marathi)",
+      1,
+      LIMITS.ingredients.max,
+    ),
     shelfLife: optionalLen("Shelf life", 1, LIMITS.shelfLife.max),
 
     price: z
@@ -115,8 +140,16 @@ export const productSchema = z
     reviewCount: z.number().int().min(0),
     ordersCount: z.number().int().min(0),
 
-    metaTitleEn: optionalLen("Meta title (English)", metaTitle.min, metaTitle.max),
-    metaTitleMr: optionalLen("Meta title (Marathi)", metaTitle.min, metaTitle.max),
+    metaTitleEn: optionalLen(
+      "Meta title (English)",
+      metaTitle.min,
+      metaTitle.max,
+    ),
+    metaTitleMr: optionalLen(
+      "Meta title (Marathi)",
+      metaTitle.min,
+      metaTitle.max,
+    ),
     metaDescriptionEn: optionalLen(
       "Meta description (English)",
       metaDescription.min,
@@ -135,8 +168,14 @@ export const productSchema = z
           .array(
             z
               .string()
-              .min(keywords.min, `Each keyword: at least ${keywords.min} characters`)
-              .max(keywords.maxLength, `Each keyword: at most ${keywords.maxLength} characters`),
+              .min(
+                keywords.min,
+                `Each keyword: at least ${keywords.min} characters`,
+              )
+              .max(
+                keywords.maxLength,
+                `Each keyword: at most ${keywords.maxLength} characters`,
+              ),
           )
           .max(keywords.max, `At most ${keywords.max} keywords`),
       ),
@@ -190,8 +229,14 @@ const heroHref = (label: string) =>
   optionalText.pipe(
     z
       .string()
-      .max(HERO_LIMITS.href.max, `${label}: at most ${HERO_LIMITS.href.max} characters`)
-      .regex(HREF_PATTERN, `${label}: start with /, #, https://, tel: or mailto:`)
+      .max(
+        HERO_LIMITS.href.max,
+        `${label}: at most ${HERO_LIMITS.href.max} characters`,
+      )
+      .regex(
+        HREF_PATTERN,
+        `${label}: start with /, #, https://, tel: or mailto:`,
+      )
       .nullable(),
   );
 
@@ -207,8 +252,16 @@ export const heroSlideSchema = z
     imagePublicId: z.string().min(1, "Upload the desktop image"),
     mobileImageUrl: optionalText.pipe(cloudinaryUrl.nullable()),
     mobileImagePublicId: optionalText,
-    altEn: requiredLen("Image description (English)", LIMITS.alt.min, LIMITS.alt.max),
-    altMr: optionalLen("Image description (Marathi)", LIMITS.alt.min, LIMITS.alt.max),
+    altEn: requiredLen(
+      "Image description (English)",
+      LIMITS.alt.min,
+      LIMITS.alt.max,
+    ),
+    altMr: optionalLen(
+      "Image description (Marathi)",
+      LIMITS.alt.min,
+      LIMITS.alt.max,
+    ),
 
     showLogo: z.boolean(),
     titleEn: heroText("Title (English)", title.max),
@@ -234,22 +287,136 @@ export const heroSlideSchema = z
     };
 
     // The English text is the fallback, so Marathi alone would show nothing on /en
-    if (s.titleMr) need(s.titleEn, "titleEn", "Title (English) is required when the Marathi title is filled in");
+    if (s.titleMr)
+      need(
+        s.titleEn,
+        "titleEn",
+        "Title (English) is required when the Marathi title is filled in",
+      );
     if (s.descriptionMr)
-      need(s.descriptionEn, "descriptionEn", "Description (English) is required when the Marathi description is filled in");
+      need(
+        s.descriptionEn,
+        "descriptionEn",
+        "Description (English) is required when the Marathi description is filled in",
+      );
 
     // A button shows only with English text and a link; half-filled is a mistake
-    for (const [key, name] of [["primary", "Button 1"], ["secondary", "Button 2"]] as const) {
+    for (const [key, name] of [
+      ["primary", "Button 1"],
+      ["secondary", "Button 2"],
+    ] as const) {
       const labelEn = s[`${key}LabelEn`];
       const href = s[`${key}Href`];
       if (labelEn || s[`${key}LabelMr`] || href) {
-        need(labelEn, `${key}LabelEn`, `${name} text (English) is required, or clear the button`);
-        need(href, `${key}Href`, `${name} link is required, or clear the button`);
+        need(
+          labelEn,
+          `${key}LabelEn`,
+          `${name} text (English) is required, or clear the button`,
+        );
+        need(
+          href,
+          `${key}Href`,
+          `${name} link is required, or clear the button`,
+        );
       }
     }
 
     if (Boolean(s.mobileImageUrl) !== Boolean(s.mobileImagePublicId))
-      ctx.addIssue({ code: "custom", path: ["mobileImageUrl"], message: "Upload the mobile image again" });
+      ctx.addIssue({
+        code: "custom",
+        path: ["mobileImageUrl"],
+        message: "Upload the mobile image again",
+      });
   });
 
 export type HeroSlideInput = z.infer<typeof heroSlideSchema>;
+
+/* ---------- Video reviews and testimonials ---------- */
+
+const thumbMsg = "Thumbnail: please upload an image";
+
+export const videoReviewSchema = z.object({
+  // the owner can paste a full link, we store only the 11-character id
+  videoId: z
+    .string()
+    .trim()
+    .refine(
+      (v) => extractYoutubeId(v) !== null,
+      "Enter a valid YouTube link or 11-character video ID",
+    )
+    .transform((v) => extractYoutubeId(v) as string),
+  titleEn: requiredLen(
+    "Title (English)",
+    R.videos.title.min,
+    R.videos.title.max,
+  ),
+  titleMr: optionalLen(
+    "Title (Marathi)",
+    R.videos.title.min,
+    R.videos.title.max,
+  ),
+  thumbnailUrl: z
+    .string()
+    .refine((v) => v.startsWith("https://res.cloudinary.com/"), thumbMsg),
+  thumbnailPublicId: z.string().min(1, thumbMsg),
+  isVisible: z.boolean(),
+  sortOrder: z.number("Sort order must be a number").int().min(0),
+});
+
+export const testimonialSchema = z
+  .object({
+    nameEn: requiredLen(
+      "Name (English)",
+      R.testimonials.name.min,
+      R.testimonials.name.max,
+    ),
+    nameMr: optionalLen(
+      "Name (Marathi)",
+      R.testimonials.name.min,
+      R.testimonials.name.max,
+    ),
+    textEn: requiredLen(
+      "Review text (English)",
+      R.testimonials.text.min,
+      R.testimonials.text.max,
+    ),
+    textMr: optionalLen(
+      "Review text (Marathi)",
+      R.testimonials.text.min,
+      R.testimonials.text.max,
+    ),
+    rating: z
+      .number("Rating must be a number")
+      .int()
+      .min(1, "Rating must be 1 to 5")
+      .max(5, "Rating must be 1 to 5"),
+    avatarUrl: z
+      .string()
+      .nullable()
+      .refine(
+        (v) => v === null || v.startsWith("https://res.cloudinary.com/"),
+        "Photo: please upload an image",
+      ),
+    avatarPublicId: z.string().nullable(),
+    isVisible: z.boolean(),
+    sortOrder: z.number("Sort order must be a number").int().min(0),
+  })
+  .refine((d) => (d.avatarUrl === null) === (d.avatarPublicId === null), {
+    message: "Photo: please upload an image",
+    path: ["avatarUrl"],
+  });
+
+// Used by the quick show/hide button in the lists
+export const visibilitySchema = z.object({ isVisible: z.boolean() }).strict();
+
+export const youtubeLinkSchema = z.object({
+  youtubeUrl: z
+    .string()
+    .trim()
+    .nullish()
+    .transform((v) => v || null)
+    .refine(
+      (v) => v === null || isYoutubeUrl(v),
+      "Enter a link like https://www.youtube.com/@yourchannel",
+    ),
+});

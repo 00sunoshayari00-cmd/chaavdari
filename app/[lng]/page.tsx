@@ -21,6 +21,7 @@ import {
   ogLocale,
   organizationJsonLd,
 } from "@/lib/seo";
+import ReviewsSection from "@/components/frontend/components/Reviews/ReviewsSection";
 
 export async function generateMetadata({
   params,
@@ -57,9 +58,7 @@ export default async function Home({
   const [{ t }, catalog] = await Promise.all([getT(), getCatalog()]);
 
   const homeUrl = `${SITE_URL}/${lng}`;
-  const products = catalog
-    .flatMap((c) => c.products)
-    .filter((p) => !p.noindex);
+  const products = catalog.flatMap((c) => c.products).filter((p) => !p.noindex);
 
   /* ----- structured data for Google ----- */
   const jsonLd = [
@@ -105,6 +104,7 @@ export default async function Home({
       <Story />
       <OrderOnWhatsapp />
       <OurOrigin />
+      <ReviewsSection lng={lng} />
       <InstagramFollow />
     </main>
   );

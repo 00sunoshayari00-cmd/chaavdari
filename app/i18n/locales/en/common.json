@@ -89,6 +89,21 @@
       "line2": "Wholesome"
     }
   },
+  "reviews": {
+    "title": "Reviews & Testimonials",
+    "videosLabel": "Video reviews",
+    "viewAll": "View all reviews",
+    "opensNewTab": "(opens YouTube in a new tab)",
+    "play": "Play video review: {title}",
+    "close": "Close video"
+  },
+  "testimonials": {
+    "label": "Customer testimonials",
+    "rated": "Rated {rating} out of 5",
+    "prev": "Previous testimonials",
+    "next": "Next testimonials",
+    "slide": "{n} of {total}"
+  },
   "social": {
     "followLine": "Follow us on",
     "handle": "@chaavdari",

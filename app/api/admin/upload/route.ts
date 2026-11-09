@@ -4,7 +4,8 @@ import type { UploadApiResponse } from "cloudinary";
 import cloudinary from "@/lib/cloudinary";
 import { requireAdmin, unauthorized } from "@/lib/admin";
 import { LIMITS } from "@/lib/productRules";
-import { HERO_IMAGES, type HeroImageKind } from "@/lib/heroRules";
+import { HERO_IMAGES } from "@/lib/heroRules";
+import { REVIEW_IMAGES } from "@/lib/reviewLimits";
 
 export const runtime = "nodejs";
 
@@ -12,13 +13,33 @@ const ALLOWED = ["image/jpeg", "image/png", "image/webp", "image/avif"];
 const MAX_BYTES = LIMITS.images.maxBytes; // Vercel rejects request bodies over ~4.5MB
 const MIN_SIDE = LIMITS.images.minSide;
 
-// Product images unless the form sends kind=hero or kind=hero-mobile
-function rulesFor(kind: FormDataEntryValue | null) {
-  if (typeof kind === "string" && kind in HERO_IMAGES) {
-    const { folder, minWidth, minHeight } = HERO_IMAGES[kind as HeroImageKind];
+interface ImageRules {
+  folder: string;
+  minWidth: number;
+  minHeight: number;
+}
+
+const PRODUCT_RULES: ImageRules = {
+  folder: "chaavdari/products",
+  minWidth: MIN_SIDE,
+  minHeight: MIN_SIDE,
+};
+
+// Every upload type the admin forms can send as `kind`
+const KIND_RULES: Record<string, ImageRules> = {
+  ...HERO_IMAGES, // hero, hero-mobile
+  ...REVIEW_IMAGES, // thumbnail, avatar
+};
+
+// No kind (or "product") means a product image. An unknown kind is refused
+// instead of silently using the product rules.
+function rulesFor(kind: FormDataEntryValue | null): ImageRules | null {
+  if (kind === null || kind === "" || kind === "product") return PRODUCT_RULES;
+  if (typeof kind === "string" && Object.hasOwn(KIND_RULES, kind)) {
+    const { folder, minWidth, minHeight } = KIND_RULES[kind];
     return { folder, minWidth, minHeight };
   }
-  return { folder: "chaavdari/products", minWidth: MIN_SIDE, minHeight: MIN_SIDE };
+  return null;
 }
 
 export async function POST(req: Request) {
@@ -26,7 +47,12 @@ export async function POST(req: Request) {
 
   const form = await req.formData();
   const file = form.get("file");
-  const { folder, minWidth, minHeight } = rulesFor(form.get("kind"));
+
+  const rules = rulesFor(form.get("kind"));
+  if (!rules) {
+    return NextResponse.json({ error: "Unknown upload type" }, { status: 400 });
+  }
+  const { folder, minWidth, minHeight } = rules;
 
   if (!(file instanceof File)) {
     return NextResponse.json({ error: "No file received" }, { status: 400 });
@@ -48,12 +74,10 @@ export async function POST(req: Request) {
     const buffer = Buffer.from(await file.arrayBuffer());
     const result = await new Promise<UploadApiResponse>((resolve, reject) => {
       cloudinary.uploader
-        .upload_stream(
-          { folder, resource_type: "image" },
-          (err, res) =>
-            err || !res
-              ? reject(err ?? new Error("Upload failed"))
-              : resolve(res),
+        .upload_stream({ folder, resource_type: "image" }, (err, res) =>
+          err || !res
+            ? reject(err ?? new Error("Upload failed"))
+            : resolve(res),
         )
         .end(buffer);
     });
